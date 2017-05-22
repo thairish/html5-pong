@@ -38,6 +38,7 @@ var differenceY; //Used to determine the speed of the ball when it hits the edge
 var showWinningScreen = false;
 var winningScreenColour = "#ffffff";
 var scoreColour = "#3f3f3f";
+var winningScoreTextMarginBottom = 20;
 var winningScoreText;
 
 window.onload = function() {
@@ -158,13 +159,19 @@ function moveShapes() {
 
 function drawShapes() {
   if( showWinningScreen ) {
+    var newGameText = "Click the screen to start a new game.";
+    var newGameTextX = (canvas.width / 2) - (ctx.measureText( newGameText ).width / 2);
+    var winningTextX = (canvas.width / 2) - (ctx.measureText( winningScoreText ).width / 2);
+    var newGameTextY = (parseInt( ctx.font ) * 2) * (0.5) + (canvas.height * 0.5); //parseInt is used to get height of the text
+    var winningTextY = (parseInt( ctx.font ) * 0.5 ) + (canvas.height * 0.5) - (winningScoreTextMarginBottom); //parseInt is used to get height of the text
+
     ctx.fillStyle = backgroundColour;
     ctx.fillRect( 0, 0, canvas.width, canvas.height );
 
     ctx.fillStyle = winningScreenColour;
     ctx.font = "30px Calibri";
-    ctx.fillText( winningScoreText, 100, 100 );
-    ctx.fillText( "Click the screen to start a new game.", 100, 200 );
+    ctx.fillText( winningScoreText, winningTextX, winningTextY );
+    ctx.fillText( newGameText, newGameTextX, newGameTextY );
 
     return;
   }
@@ -179,7 +186,7 @@ function drawShapes() {
   //Player one score
   var playerScoreLeftX = (canvas.width / 4) - (ctx.measureText( playerOneScore ).width / 2);
   var playerScoreRightX = (canvas.width) - (canvas.width / 4) - (ctx.measureText( playerTwoScore ).width / 2);
-  var playerScoreY = (parseInt( ctx.font ) * 0.2 ) + (canvas.height * 0.2); //20% from the top
+  var playerScoreY = (parseInt( ctx.font ) * 0.2 ) + (canvas.height * 0.2); //parseInt is used to get height of the text
 
   ctx.fillStyle = scoreColour;
   ctx.font = "100px Calibri";
