@@ -33,7 +33,6 @@ var xAlignNet = (canvas.width / 2) ;
 var winningScore = 3;
 var playerOneScore = 0;
 var playerTwoScore = 0;
-
 var differenceY; //Used to determine the speed of the ball when it hits the edge of a paddle
 
 var showWinningScreen = false;
@@ -165,14 +164,12 @@ function drawShapes() {
     ctx.fillStyle = winningScreenColour;
     ctx.font = "30px Calibri";
     ctx.fillText( winningScoreText, 100, 100 );
-    console.log(ctx.measureText( " " + winningScoreText ));
     ctx.fillText( "Click the screen to start a new game.", 100, 200 );
 
     return;
   }
 
   //Sequential drawing
-
   var netPadding = 10; //Starts at 10 to give start and end padding
 
   //Background shape
@@ -180,12 +177,17 @@ function drawShapes() {
   ctx.fillRect( 0, 0, canvas.width, canvas.height );
 
   //Player one score
+  var playerScoreLeftX = (canvas.width / 4) - (ctx.measureText( playerOneScore ).width / 2);
+  var playerScoreRightX = (canvas.width) - (canvas.width / 4) - (ctx.measureText( playerTwoScore ).width / 2);
+  var playerScoreY = (parseInt( ctx.font ) * 0.2 ) + (canvas.height * 0.2); //20% from the top
+
   ctx.fillStyle = scoreColour;
   ctx.font = "100px Calibri";
-  ctx.fillText( playerOneScore, 100, 100 );
+  ctx.fillText( playerOneScore, playerScoreLeftX, playerScoreY );
 
   //Player two score
-  ctx.fillText( playerTwoScore, 700, 100 );
+  var playerRightX = (canvas.width) - (canvas.width / 4) - (ctx.measureText( playerTwoScore ).width / 2);
+  ctx.fillText( playerTwoScore, playerScoreRightX, playerScoreY );
 
   //Left player shape
   ctx.fillStyle = paddleBallColour;
